@@ -1,0 +1,142 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id             String        @id @default(cuid())
+  email          String        @unique
+  name           String?
+  passwordHash   String
+  role           Role          @default(ADMIN)
+  organizationId String?
+  organization   Organization? @relation(fields: [organizationId], references: [id])
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+}
+
+model Organization {
+  id        String    @id @default(cuid())
+  name      String
+  users     User[]
+  programs  Program[]
+  createdAt DateTime  @default(now())
+}
+
+model Program {
+  id              String        @id @default(cuid())
+  name            String
+  description     String?
+  trainingContext String        @db.Text
+  companyContext  String?       @db.Text
+  roleContext     String?       @db.Text
+  status          ProgramStatus @default(DRAFT)
+  organizationId  String
+  organization    Organization  @relation(fields: [organizationId], references: [id])
+  participants    Participant[]
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+}
+
+model Participant {
+  id                String            @id @default(cuid())
+  email             String
+  name              String
+  role              String?
+  programId         String
+  program           Program           @relation(fields: [programId], references: [id], onDelete: Cascade)
+  trainingCompleted DateTime?
+  status            ParticipantStatus @default(PENDING)
+  chatSessions      ChatSession[]
+  actionItems       ActionItem[]
+  createdAt         DateTime          @default(now())
+  updatedAt         DateTime          @updatedAt
+
+  @@unique([email, programId])
+}
+
+model ChatSession {
+  id            String        @id @default(cuid())
+  participantId String
+  participant   Participant   @relation(fields: [participantId], references: [id], onDelete: Cascade)
+  type          SessionType
+  status        SessionStatus @default(PENDING)
+  messages      Message[]
+  summary       String?       @db.Text
+  startedAt     DateTime?
+  completedAt   DateTime?
+  createdAt     DateTime      @default(now())
+}
+
+model Message {
+  id            String      @id @default(cuid())
+  chatSessionId String
+  chatSession   ChatSession @relation(fields: [chatSessionId], references: [id], onDelete: Cascade)
+  role          MessageRole
+  content       String      @db.Text
+  createdAt     DateTime    @default(now())
+}
+
+model ActionItem {
+  id            String       @id @default(cuid())
+  participantId String
+  participant   Participant  @relation(fields: [participantId], references: [id], onDelete: Cascade)
+  title         String
+  description   String?      @db.Text
+  dueDate       DateTime?
+  status        ActionStatus @default(PENDING)
+  completedAt   DateTime?
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+}
+
+enum Role {
+  ADMIN
+  VIEWER
+}
+
+enum ProgramStatus {
+  DRAFT
+  ACTIVE
+  COMPLETED
+  ARCHIVED
+}
+
+enum ParticipantStatus {
+  PENDING
+  TRAINING_COMPLETE
+  INTERVIEW_SENT
+  INTERVIEW_DONE
+  IN_PROGRESS
+  COMPLETED
+}
+
+enum SessionType {
+  INITIAL_INTERVIEW
+  FOLLOWUP_1
+  FOLLOWUP_2
+  FOLLOWUP_3
+}
+
+enum SessionStatus {
+  PENDING
+  IN_PROGRESS
+  COMPLETED
+  EXPIRED
+}
+
+enum MessageRole {
+  USER
+  ASSISTANT
+}
+
+enum ActionStatus {
+  PENDING
+  IN_PROGRESS
+  COMPLETED
+  SKIPPED
+}
