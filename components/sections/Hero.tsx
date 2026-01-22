@@ -31,13 +31,13 @@ const Hero = () => {
           {/* CTAs */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-10">
             <Button size="lg" asChild>
-              <Link href="#demo" className="flex items-center gap-2">
-                Заказать демо
+              <Link href="/signup" className="flex items-center gap-2">
+                Попробовать бесплатно
                 <ArrowRight className="w-4 h-4" />
               </Link>
             </Button>
             <Button size="lg" variant="outline" asChild>
-              <Link href="#dashboard">Посмотреть дашборд</Link>
+              <Link href="/dashboard">Посмотреть дашборд</Link>
             </Button>
           </div>
 

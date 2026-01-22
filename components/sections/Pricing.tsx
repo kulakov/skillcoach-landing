@@ -54,8 +54,8 @@ const Pricing = () => {
             </p>
 
             <Button size="lg" className="w-full" asChild>
-              <Link href="#demo" className="flex items-center justify-center gap-2">
-                Получить расчёт
+              <Link href="/signup" className="flex items-center justify-center gap-2">
+                Попробовать бесплатно
                 <ArrowRight className="w-4 h-4" />
               </Link>
             </Button>
@@ -69,12 +69,9 @@ const Pricing = () => {
               <Calculator className="w-5 h-5" />
               <span className="font-medium">Оцените экономию</span>
             </div>
-            <p className="text-sm text-muted-foreground mb-4">
+            <p className="text-sm text-muted-foreground">
               Средняя компания с 500 сотрудниками экономит $120K в год по сравнению с наймом 1 дополнительного коуча.
             </p>
-            <Button variant="outline" asChild>
-              <Link href="#roi">Рассчитать ROI</Link>
-            </Button>
           </div>
         </div>
       </div>

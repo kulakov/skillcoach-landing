@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Menu, X, ChevronDown } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import Link from "next/link";
 
 const Header = () => {
@@ -34,32 +34,15 @@ const Header = () => {
             <Link href="#case-studies" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
               Кейсы
             </Link>
-            <div className="relative group">
-              <button className="flex items-center gap-1 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
-                Ресурсы
-                <ChevronDown className="w-4 h-4" />
-              </button>
-              <div className="absolute top-full left-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-border opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all">
-                <Link href="#" className="block px-4 py-2 text-sm text-muted-foreground hover:bg-muted hover:text-foreground rounded-t-lg">
-                  Блог
-                </Link>
-                <Link href="#" className="block px-4 py-2 text-sm text-muted-foreground hover:bg-muted hover:text-foreground">
-                  Вебинары
-                </Link>
-                <Link href="#" className="block px-4 py-2 text-sm text-muted-foreground hover:bg-muted hover:text-foreground rounded-b-lg">
-                  Документация
-                </Link>
-              </div>
-            </div>
           </nav>
 
           {/* Desktop CTA */}
           <div className="hidden md:flex items-center gap-4">
-            <Link href="#" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
+            <Link href="/login" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
               Войти
             </Link>
             <Button asChild>
-              <Link href="#demo">Заказать демо</Link>
+              <Link href="/signup">Попробовать бесплатно</Link>
             </Button>
           </div>
 
@@ -89,14 +72,11 @@ const Header = () => {
               <Link href="#case-studies" className="text-sm font-medium text-muted-foreground hover:text-foreground">
                 Кейсы
               </Link>
-              <Link href="#" className="text-sm font-medium text-muted-foreground hover:text-foreground">
-                Блог
-              </Link>
-              <Link href="#" className="text-sm font-medium text-muted-foreground hover:text-foreground">
+              <Link href="/login" className="text-sm font-medium text-muted-foreground hover:text-foreground">
                 Войти
               </Link>
               <Button asChild className="w-full">
-                <Link href="#demo">Заказать демо</Link>
+                <Link href="/signup">Попробовать бесплатно</Link>
               </Button>
             </nav>
           </div>
