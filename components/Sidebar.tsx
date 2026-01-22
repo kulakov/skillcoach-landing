@@ -20,12 +20,12 @@ export function Sidebar() {
   return (
     <div className="flex h-screen w-64 flex-col bg-white border-r">
       {/* Logo */}
-      <div className="flex h-16 items-center gap-2 px-6 border-b">
+      <Link href="/landing" className="flex h-16 items-center gap-2 px-6 border-b hover:bg-gray-50 transition-colors">
         <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
           <span className="text-white font-bold">S</span>
         </div>
         <span className="font-semibold text-lg">SkillCoach</span>
-      </div>
+      </Link>
 
       {/* Navigation */}
       <nav className="flex-1 px-4 py-4 space-y-1">
